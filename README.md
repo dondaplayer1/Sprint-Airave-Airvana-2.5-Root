@@ -11,6 +11,12 @@ These are two different access paths. Start with the guide for your device; the 
 
 The tested Plus reports firmware **6.5.01.010**, hardware **750721.00.03**, and FCC ID **QHYHUBBUBC4501-RT**. Results on other revisions may differ. The original 2.5 OTASP patch specifically targets **5.0.02.094**; that patch requirement is separate from the rooting script's compatibility.
 
+## AI Use Disclosure
+
+Artificial Intelligence models from OpenAI (Codex w/ GPT-6.1 Sol & Daybreak GPT-6 Luna) were used to conduct significant research of these femtocells, as well as developing helper scripts and patches, and writing documentation for use with 1xBTS.
+
+AI-generated material can contain mistakes. Review any scripts/patches before running them, and double-check firmare and hardware requirements. Results verified on tested units may not apply to other devices running different firmware versions.
+
 ## What is included
 
 - [Original 2.5 credential script](2-5/airave-provision.py) and [Plus credential script](2-5plus/airave-plus-provision.py).
@@ -85,9 +91,3 @@ The installers enforce exact executable hashes. They apply six patches to the ru
 ## Reporting results
 
 Include the model, FCC ID, firmware revision, script/version used, and the failing stage. Redact passwords, device identities, and private configuration before sharing logs. Distinguish credential extraction, persistent access, tunnel/provisioning success, and actual handset service in compatibility reports.
-
-## AI Use Disclosure
-
-Artificial Intelligence models from OpenAI (Codex w/ GPT-6.1 Sol & Daybreak GPT-6 Luna) were used to conduct significant research of these femtocells, as well as developing helper scripts and patches, and writing documentation for use with 1xBTS.
-
-AI-generated material can contain mistakes. Review any scripts/patches before running them, and double-check firmare and hardware requirements. Results verified on tested units may not apply to other devices running different firmware versions.
