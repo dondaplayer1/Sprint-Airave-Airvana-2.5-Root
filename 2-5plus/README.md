@@ -100,9 +100,11 @@ Deleting extra is appropriate only when it was originally absent. Otherwise rest
 
 ## 4. Enroll in 1xBTS
 
-Use the [shared credential mapping](../README.md#extract-the-device-credentials) and upstream [femtocell setup guide](https://1xbts.org/docs/guides/femtocells/). In a checkout containing the Plus support, select **airave-25plus** and specify the extracted **acs.username** explicitly.
+Use the [shared credential mapping](../README.md#extract-the-device-credentials) and upstream [femtocell setup guide](https://1xbts.org/docs/guides/femtocells/). Select the **airave-25plus** profile.
 
-The tested Plus requires an explicit IPv4 netmask attribute in the IKE configuration response. With the default /24 virtual-IP pool, merge this at the **top level** of config/femto.local.json:
+The tested Plus requires an explicit IPv4 netmask attribute in the IKE configuration response.
+
+If you change away from the default /24 IP pool, you will have to add this in your femto.local.json at the top level, and change it to refelct your new IP pool.
 
 ```json
 {
@@ -111,27 +113,9 @@ The tested Plus requires an explicit IPv4 netmask attribute in the IKE configura
   }
 }
 ```
-
-Use the appropriate mask for a different VIP subnet. This is a gateway-wide setting, outside the site and device-profile blocks. Setting the address-pool CIDR alone did not supply the attribute. Without it, the Plus authenticated and received a virtual IP but immediately deleted its ESP tunnel. Existing original 2.5 tunnels also worked with the mask present in the tested setup.
-
-If your checkout lacks vip_netmask support or airave-25plus, use a revision containing the Plus changes. The [development fork](https://github.com/dondaplayer1/1xbts-airave25plus) contains that work; check the version you are actually building rather than assuming upstream includes it.
+Without it, the Plus authenticated and received a virtual IP but immediately deleted its ESP tunnel. Existing original 2.5 tunnels also worked with the mask present in the tested setup.
 
 The unmodified airave-25-2x profile also provisioned the Plus during an in-place comparison with the netmask supplied. However, its legacy per-PDSN status queries returned **9005 Invalid Parametername**. The Plus profile omits unsupported queries such as OneXpdsnAdminStatus and OneXpdsnHealthStatus. That improves status collection; it does not establish packet-data compatibility.
-
-Give the Plus a unique cell/sector identity when using both models. After configuration changes, restart the tested stack's core from the 1xBTS checkout:
-
-```sh
-docker compose --profile femto restart femto-core
-```
-
-SeGW configuration reloads automatically in that version, but a fresh tunnel negotiation is needed for changed IKE attributes. If the generator image predates the netmask change, rebuild and recreate it:
-
-```sh
-docker compose --profile femto build femto-segw-config
-docker compose --profile femto up -d --no-deps femto-segw-config
-```
-
-Inspect the controller logs and a newly negotiated CHILD_SA afterward. Do not edit generated swanctl configuration as the persistent fix.
 
 ## Radio capabilities
 
