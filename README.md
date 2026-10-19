@@ -17,6 +17,14 @@ Artificial Intelligence models from OpenAI (Codex w/ GPT-6.1 Sol & Daybreak GPT-
 
 AI-generated material can contain mistakes. Review any scripts/patches before running them, and double-check firmare and hardware requirements. Results verified on tested units may not apply to other devices running different firmware versions.
 
+## Responsible Use and RF Transmission
+
+This repository is intended for research and experimentation with equipment you own or are explicitly authorized to administer. Never attempt to access, modify, or extract credentials from devices, systems, or networks without authorization. Possessing a device or its credentials does not authorize access to a carrier’s network.
+
+Radio transmission is strictly at your own risk. You are responsible for obtaining any required licenses or permissions, complying with applicable laws and regulations, and preventing harmful interference. Owning a femtocell does not grant permission to transmit on its supported frequencies. Use an appropriately shielded or conducted RF test setup where transmission is not authorized.
+
+These tools and instructions are provided without warranty. You assume responsibility for their use, including equipment damage, service disruption, unauthorized access, and interference.
+
 ## What is included
 
 - [Original 2.5 credential script](2-5/airave-provision.py) and [Plus credential script](2-5plus/airave-plus-provision.py).
@@ -46,34 +54,9 @@ Follow the appropriate model guide. Both scripts produce these six fields:
 
 These are device credentials, not values to invent. The six-field output does not include a separately named SIP password; obtain or configure that value according to the selected 1xBTS device profile. Preserve the explicit ACS username: the tested Plus uses **cdmaFAP3**, while the original uses **cdmaFAP**.
 
-## Enroll in 1xBTS
+## Configure in 1xBTS
 
 Use the upstream [femtocell setup guide](https://1xbts.org/docs/guides/femtocells/) for the complete core, routing, DNS, and handset setup. This repository covers device access and model-specific findings.
-
-1. Extract the credentials on the femtocell's LAN.
-2. In your 1xBTS checkout, put the site and credentials in the private local override, config/femto.local.json. Give every device a unique FEID and cell/sector identity.
-3. Choose a profile available in your checkout: **airave-25-2x** for original 2.x firmware or **airave-25-5x** for original 5.x firmware. For the Plus, use **airave-25plus** from a version containing the Plus changes; see its guide for the netmask requirement.
-4. Configure the femtocell's actual DNS resolver to override **femto.sprint.net**, including the segw and backup names, to your SeGW host. Editing the host computer's hosts file does not configure the femtocell's DNS.
-5. Start the stack using the upstream instructions. Permit UDP 500 and 4500 between the femtocell and SeGW.
-6. Verify the installed IPsec data tunnel, ACS provisioning, and SIP registration before testing handset service.
-
-An established IKE session alone is insufficient: check that the CHILD_SA is installed and its data counters increase. GPS/timing lock and radio status are further checks, not proof of handset calls or packet data.
-
-For the tested Compose layout, inspect state from your 1xBTS checkout:
-
-```sh
-docker exec 1xbts-femto-segw swanctl --list-sas
-docker logs --tail 100 1xbts-femto-segw-config
-docker logs --tail 100 1xbts-femto-core
-```
-
-After changing provisioning configuration, the straightforward refresh is:
-
-```sh
-docker compose --profile femto restart femto-core
-```
-
-In the tested version, SeGW configuration reloads automatically; the core needs a reload or restart. Restarting the core also refreshes the dashboard's startup cell list. New IKE attributes require a fresh tunnel negotiation. Source or container-image changes require a rebuild/recreation, not just a service restart.
 
 ## Plus radio limitation
 
