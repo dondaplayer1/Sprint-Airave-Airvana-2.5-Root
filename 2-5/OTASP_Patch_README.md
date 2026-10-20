@@ -37,7 +37,7 @@ These are **four logical fixes implemented in six memory regions**: two dispatch
 
 The RAM changes alone disappear when `OneXApplication` exits or the device reboots. The installer adds a persistent startup hook and a watcher that reapplies the same verified patches to each new process instance. It also provides firmware checks, live-region verification, status reporting, and restore/uninstall commands.
 
-**Persistence means automatic reapplication, not a rewritten firmware image.** `/usr/bin/OneXApplication` is left unchanged on disk. This package is an OTASP compatibility fix; it does not add new band support, enable EVDO or packet data, change transmit power, fix GPS/timezone behavior, or change subscriber programming values.
+**Persistence means automatic reapplication, not a rewritten firmware image.** `/usr/bin/OneXApplication` is left unchanged on disk. 
 
 ## The 1xBTS changes are still required
 
