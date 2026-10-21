@@ -54,11 +54,15 @@ The MSC still decides which NAM/MDN/PRL blocks to read or write. Enable only the
 
 ## Install over SSH or telnet
 
-Transfer `OTASP_Patch_Installer.sh` to `/tmp/OTASP_Patch_Installer.sh`, log in, and become root with su. Then run:
+Transfer `OTASP_Patch_Installer.sh` to `/tmp/OTASP_Patch_Installer.sh` with this command, replacing `YOUR_ACS_USERNAME` and `path\to\OTASP_Patch_Installer.sh` with the respective values for your situation:
+
+    ssh -T -o KexAlgorithms=+diffie-hellman-group1-sha1 -o HostKeyAlgorithms=+ssh-rsa -o MACs=+hmac-sha1 -o PreferredAuthentications=password -o PubkeyAuthentication=no -o Ciphers=+aes256-cbc YOUR_ACS_USERNAME@192.168.17.1 "cat > /tmp/OTASP_Patch_Installer.sh" < "path\to\OTASP_Patch_Installer.sh"
+
+Additionally, if you'd prefer, if you serve the file from a PC on your lan, the Airvana can use wget to fetch the file.
+
+Then, log in via SSH or telnet; if SSH, become root with su. Then run:
 
     sh /tmp/OTASP_Patch_Installer.sh install
-
-If you serve the downloaded file from a computer on your LAN, the Airvana's wget can fetch it from that computer before installation. The installer itself downloads nothing.
 
 Installation enables and starts the watcher immediately. No reboot is required to apply the patches. The installer saves itself and its helper under /conf_files/otasp/ and adds /etc/sysconfig/modules/airvana-otasp.modules, a new executable boot hook. Re-running install updates the files without adding duplicate hooks.
 

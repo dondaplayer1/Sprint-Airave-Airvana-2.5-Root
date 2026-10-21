@@ -50,9 +50,17 @@ The MSC still decides which NAM/MDN/PRL blocks to read or write. Enable only the
 
 ## Install
 
-Copy `OTASP_Patch_Installer_2-5plus.sh` to `/tmp/OTASP_Patch_Installer_2-5plus.sh` over SSH or through a LAN download from a telnet shell. Become root, then run:
+## Install over SSH or telnet
 
-    sh /tmp/OTASP_Patch_Installer_2-5plus.sh install
+Transfer `OTASP_Patch_Installer_2-5plus.sh` to `/tmp/OTASP_Patch_Installer_2-5plus.s` with this command, replacing `YOUR_ACS_USERNAME` and `path\to\OTASP_Patch_Installer_2-5plus.sh` with the respective values for your situation:
+
+    ssh -T -o KexAlgorithms=+diffie-hellman-group1-sha1 -o HostKeyAlgorithms=+ssh-rsa -o MACs=+hmac-sha1 -o PreferredAuthentications=password -o PubkeyAuthentication=no YOUR_ACS_USERNAME@192.168.17.1 "cat > /tmp/OTASP_Patch_Installer_2-5plus.sh" < "path\to\OTASP_Patch_Installer_2-5plus.sh"
+
+Additionally, if you'd prefer, if you serve the file from a PC on your lan, the Airvana can use wget to fetch the file.
+
+Then, log in via SSH or telnet; if SSH, become root with su. Then run:
+
+    sh /tmp/OTASP_Patch_Installer_2-5plus.s.sh install
 
 The installer downloads nothing and needs no Python, compiler, external helper download, or gdbserver. It embeds a static PowerPC helper, checks the extracted payload checksum before executing it, verifies the full firmware hash, and tests thread stop/resume on a disposable process before enabling automatic patching.
 
