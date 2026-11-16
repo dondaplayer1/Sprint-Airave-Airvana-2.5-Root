@@ -84,6 +84,29 @@ su
 id
 ```
 
+Or after DEBUG_MODE is set, telnet gets exposed for good so you can
+```powershell
+telnet 192.168.17.1
+```
+
+and use root:root 
+you should be greeted with
+```
+telnet 192.168.17.1
+Trying 192.168.17.1...
+Connected to 192.168.7.1.
+Escape character is '^]'.
+
+
+        Welcome to the Airvana's HubBub Femtocell Platform
+
+             UNAUTHORIZED ACCESS STRICTLY PROHIBITED
+
+0005B92DA8B2 login: root
+Password: 
+root@0005B92DA8B2:~# 
+```
+
 The tested su password is **root**. Accept a host key only after checking it for your own unit; a fingerprint from another femtocell is not transferable. Unlike the original 2.5, the Plus uses direct radio SSH on **22**, not the 23022 router relay.
 
 ### Undo persistent debug mode
