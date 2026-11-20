@@ -6,8 +6,8 @@ These are two different access paths. Start with the guide for your device; the 
 
 | Device | Start here | Access method | Radio SSH port |
 | --- | --- | --- | --- |
-| Airave 2.5 (original) | [2.5 guide](2-5/2-5.md) | Router diagnostics command injection, then forwarding to the internal radio | 23022 |
-| Airave 2.5+ (Plus) | [2.5+ guide](2-5plus/2-5PLUS.md) | Brief root Telnet window during boot; optional persistent debug mode | 22 |
+| Airave 2.5 (original) | [2.5 guide](2-5/README.md) | Router diagnostics command injection, then forwarding to the internal radio | 23022 |
+| Airave 2.5+ (Plus) | [2.5+ guide](2-5plus/README.md) | Brief root Telnet window during boot; optional persistent debug mode | 22 |
 
 The tested Plus reports firmware **6.5.01.010**, hardware **750721.00.03**, and FCC ID **QHYHUBBUBC4501-RT**. Results on other revisions may differ. The original 2.5 OTASP patch specifically targets **5.0.02.094**; that patch requirement is separate from the rooting script's compatibility.
 
